@@ -82,11 +82,11 @@ var b = pattern();
 render(b);
 
 document.getElementById('reduce').addEventListener('click', function () {
-  b = reduce(b);
+  window.Board = b = reduce(b);
   render(b);
 });
 
 document.getElementById('reset').addEventListener('click', function () {
-  b = pattern();
+  window.Board = b = pattern();
   render(b);
 });
