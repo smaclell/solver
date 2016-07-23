@@ -1,0 +1,48 @@
+.buttons {
+  text-align: center;
+  margin: 20px;
+}
+
+div {
+  display: flex;
+  align-self: stretch;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+}
+
+.board {
+  display: flex;
+  border: 4px solid black;
+  border-radius: 4px;
+}
+
+.board, .square, .cell, .guess {
+  flex: 1;
+  flex-direction: column;
+}
+
+.squares, .cells, .guesses {
+  flex: 1;
+  flex-direction: row;
+}
+
+.taken {
+  visibility: hidden;
+}
+
+.cell {
+  border: 1px black solid;
+}
+
+.square {
+  border: 2px black solid;
+}
+
+.guess {
+  color: #b3b3b3;
+}
+
+.value {
+  font-weight: bold;
+}
