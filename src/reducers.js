@@ -83,6 +83,8 @@ export default function reduce(board) {
 
   stablize(board, solvedCell);
   stablize(board, singleOption);
+  // TODO: Hidden pairs
+  // TODO: Lines
 
   return board;
 }

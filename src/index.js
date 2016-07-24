@@ -69,14 +69,31 @@ function createBoard14() {
     [9, 8, q, 6, q, 7, q, 3, q]
   ];
 
-  return Board.from(rows);
+  return Board.from(rows, q);
+}
+
+function createBoard200() {
+  const q = 0;
+  const rows = [
+    [q, q, q, q, q, 4, 8, q, 1],
+    [8, q, 4, q, q, 5, q, 9, q],
+    [1, q, q, q, q, q, q, 4, 2],
+    [q, q, 6, 1, q, 7, q, q, q],
+    [q, 3, q, q, 8, q, q, 6, q],
+    [q, q, q, 3, q, 9, 1, q, q],
+    [4, 1, q, q, q, q, q, q, 9],
+    [q, 9, q, 6, q, q, 2, q, 4],
+    [6, q, 3, 4, q, q, q, q, q]
+  ];
+
+  return Board.from(rows, q);
 }
 
 function render(board) {
   document.getElementById('board').innerHTML = board.render();
 }
 
-const pattern = createBoard14;
+const pattern = createBoard200;
 
 var b = pattern();
 render(b);
