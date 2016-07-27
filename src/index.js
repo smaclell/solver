@@ -172,6 +172,34 @@ function disableButtonsWhile(func) {
   func();
   toggleButtons(true);
 }
+
+document.getElementById('validate').addEventListener('click', function () {
+  let valid = true;
+
+  const check = cells => {
+    let remaining = {};
+    cells.filter(c => c.solved).forEach(c => {
+      c.options.forEach(v => {
+        const found = remaining[v]
+        if (found) {
+          valid = false;
+        }
+        remaining[v] = true;
+      });
+    });
+  };
+
+  for(let i = 0; i < 9; i++) {
+    check(window.Board.column(i));
+    check(window.Board.row(i));
+    check(window.Board.square(i));
+  }
+
+  if (!valid) {
+    alert("INVALID");
+  }
+});
+
 document.getElementById('reduce').addEventListener('click', function () {
   disableButtonsWhile(evaluate);
 });

@@ -4,6 +4,12 @@
   padding: 10px;
 }
 
+.invalid {
+  font-weight: bold;
+  color: white;
+  background-color: red;
+}
+
 div {
   display: flex;
   align-self: stretch;
