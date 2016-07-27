@@ -131,7 +131,7 @@ function clickCell(e) {
       cell.options.push(choice);
     }
   } else {
-    if (cell.solved) {
+    if (cell.value === choice) {
       cell.unset();
     } else {
       cell.set(choice);
