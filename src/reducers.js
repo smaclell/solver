@@ -26,7 +26,8 @@ function singleOption(cells) {
   });
 
   const values = cells.filter(c => c.solved).map(c => c.value);
-  Object.keys(remaining).forEach(value => {
+  Object.keys(remaining).forEach(v => {
+    const value = parseInt(v, 10);
     const options = remaining[value];
     if (!values.includes(value) && options.length === 1) {
       options[0].set(value);
@@ -76,15 +77,21 @@ function stablize(board, cellReducer) {
   while (reducers.reduce(combiner, 0) > 0) {
     rounds++;
   }
+
+  return rounds;
 }
 
 export default function reduce(board) {
   let updated = board.clone();
+  let rounds = 0;
 
-  stablize(board, solvedCell);
-  stablize(board, singleOption);
-  // TODO: Hidden pairs
-  // TODO: Lines
+  do {
+    rounds = 0;
+    rounds += stablize(board, solvedCell);
+    rounds += stablize(board, singleOption);
+    // TODO: Hidden pairs
+    // TODO: Lines
+  } while(rounds > 0);
 
   return board;
 }
