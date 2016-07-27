@@ -1,6 +1,7 @@
 .buttons {
   text-align: center;
-  margin: 20px;
+  height: 10%;
+  padding: 10px;
 }
 
 div {
@@ -22,13 +23,17 @@ div {
 }
 
 #choices {
-  margin: 10px;
+  text-align: center;
+  height: 10%;
+  padding: 10px;
 }
 
 .board {
   display: flex;
   border: 4px solid black;
   border-radius: 4px;
+  min-width: 520px;
+  min-height: 520px;
 }
 
 .board, .square, .cell, .guess {
