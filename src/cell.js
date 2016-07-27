@@ -3,11 +3,12 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 class Cell {
   constructor() {
     this.value = null;
-    this.options = numbers;
+    this.options = [].concat(numbers);
   }
 
   clone() {
     let cell = new Cell();
+    cell.solved = this.solved;
     cell.value = this.value;
     cell.options = [];
 
@@ -18,6 +19,12 @@ class Cell {
     this.solved = true;
     this.value = value;
     this.options = [value];
+  }
+
+  unset() {
+    this.solved = false;
+    this.value = undefined;
+    this.options = [].concat(numbers);
   }
 
   remove(value) {
@@ -33,12 +40,12 @@ class Cell {
     return false;
   };
 
-  render() {
+  render(x, y) {
     if (this.solved) {
-      return '<div class="cell value">' + this.value + '</div>';
+      return `<div class="cell value" data-x="${x}" data-y="${y}">` + this.value + '</div>';
     }
 
-    let result = '<div class="cell">';
+    let result = `<div class="cell" data-x="${x}" data-y="${y}">`;
 
     numbers.forEach(n => {
 

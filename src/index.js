@@ -1,7 +1,7 @@
 import Board from './board';
 import reduce from './reducers';
 
-require("./css/style.css");
+require('./css/style.css');
 
 
 
@@ -106,21 +106,130 @@ function createBoard422() {
   return Board.from(rows, q);
 }
 
+let choice = 1;
+let mode = 'pencil';
+
+function clickCell(e) {
+  let c = e.target;
+  while((c.className || '').indexOf('cell') === -1) {
+    c = c.parentElement;
+  }
+
+  if (!c) {
+    return;
+  }
+
+  const x = parseInt(c.dataset.x, 10);
+  const y = parseInt(c.dataset.y, 10);
+
+  const cell = window.Board.cell(x, y);
+
+  if (mode === 'pencil') {
+    if (cell.options.indexOf(choice) >= 0) {
+      cell.options = cell.options.filter(o => o !== choice);
+    } else {
+      cell.options.push(choice);
+    }
+  } else {
+    if (cell.solved) {
+      cell.unset();
+    } else {
+      cell.set(choice);
+    }
+  }
+
+  render(window.Board);
+}
+
 function render(board) {
   document.getElementById('board').innerHTML = board.render();
+
+  const cells = document.getElementsByClassName('cell');
+  Array.prototype.forEach.call(cells, c => c.addEventListener('click', clickCell));
 }
 
 const pattern = createBoard422;
 
-var b = pattern();
+let b = pattern();
 render(b);
 
-document.getElementById('reduce').addEventListener('click', function () {
+window.Board = b;
+
+function evaluate() {
   window.Board = b = reduce(b);
   render(b);
+}
+
+function toggleButtons(enabled = true) {
+  const buttons = document.getElementsByTagName('button');
+
+  const filtered = Array.prototype.filter.call(buttons, button => button.className != 'choice');
+  Array.prototype.forEach.call(filtered, button => button.disabled = enabled ? '' : 'disabled');
+}
+
+function disableButtonsWhile(func) {
+  toggleButtons(false);
+  func();
+  toggleButtons(true);
+}
+document.getElementById('reduce').addEventListener('click', function () {
+  disableButtonsWhile(evaluate);
 });
 
 document.getElementById('reset').addEventListener('click', function () {
   window.Board = b = pattern();
-  render(b);
+  disableButtonsWhile(evaluate);
+});
+
+const modes = document.getElementsByClassName('mode');
+const forEachMode = f => Array.prototype.forEach.call(modes, f);
+
+function toggleMode(e) {
+  const target = e.target;
+  mode = target.id;
+
+  const modeSelector = m => m.className = m === target ? 'mode selected' : 'mode';
+  forEachMode(modeSelector);
+}
+
+function setupModes() {
+  forEachMode(m => {
+    m.addEventListener('click', toggleMode);
+    if (m.id === mode) {
+      m.className = 'mode selected';
+    }
+  });
+}
+
+function changeChoice(e) {
+  const previous = document.querySelector('button[data-choice="' + choice + '"]');
+  if (previous) {
+    previous.className = 'choice';
+  }
+
+  const target = e.target;
+  choice = parseInt(target.dataset.choice, 10);
+  target.className = 'choice selected';
+}
+
+function setupChoices() {
+  const choices = document.getElementById('choices');
+  [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(c => {
+    const e = document.createElement('button');
+    e.className = 'choice';
+    if (choice === c) {
+      e.className += ' selected';
+    }
+
+    e.dataset.choice = c;
+    e.innerText = c.toString();
+
+    e.addEventListener('click', changeChoice);
+    choices.appendChild(e);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  setupChoices();
+  setupModes();
 });
