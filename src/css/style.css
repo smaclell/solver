@@ -10,6 +10,15 @@
   background-color: red;
 }
 
+.hover {
+  background-color: #eeeeee;
+}
+
+.hover:hover, .hover:hover .guess {
+  background-color: #555555;
+  color: white;
+}
+
 div {
   display: flex;
   align-self: stretch;
@@ -59,6 +68,7 @@ div {
 .cell {
   border: 1px black solid;
   pointer: hand;
+  transition: all 0.2s;
 }
 
 .square {

@@ -106,6 +106,10 @@ function createBoard422() {
   return Board.from(rows, q);
 }
 
+let methods = {};
+const addMethod = m => methods[m] = (t, f) => Array.prototype[m].call(t, f);
+['forEach', 'filter'].forEach(m => addMethod(m));
+
 let choice = 1;
 let mode = 'pencil';
 
@@ -141,11 +145,54 @@ function clickCell(e) {
   render(window.Board);
 }
 
+let hover = {};
+function applyHover() {
+  const cells = document.querySelectorAll('.cell.hover');
+
+  const remove = methods.filter(cells, c => !(c.dataset.x === hover.x || c.dataset.y === hover.y));
+  methods.forEach(remove, c => c.className = c.className.replace('hover', ''));
+
+  const hovers = document.querySelectorAll(`.cell[data-x='${hover.x}'], .cell[data-y='${hover.y}']`);
+  methods.forEach(hovers, c => c.className = c.className.replace('hover', '') + ' hover');
+}
+
+function mouseEnter(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+
+  const x = parseInt(e.target.dataset.x, 10);
+  const y = parseInt(e.target.dataset.y, 10);
+  const updated = {x, y};
+
+  if (!updated.x || !updated.y) {
+    return false;
+  }
+
+  hover = updated;
+  applyHover();
+
+  return false;
+}
+
+function mouseLeave(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+
+  applyHover();
+  return false;
+}
+
 function render(board) {
   document.getElementById('board').innerHTML = board.render();
 
   const cells = document.getElementsByClassName('cell');
-  Array.prototype.forEach.call(cells, c => c.addEventListener('click', clickCell));
+  methods.forEach(cells, c => {
+    c.addEventListener('click', clickCell);
+    c.addEventListener('mouseenter', mouseEnter);
+    c.addEventListener('mouseleave', mouseLeave);
+  });
 }
 
 const pattern = createBoard422;
@@ -163,8 +210,8 @@ function evaluate() {
 function toggleButtons(enabled = true) {
   const buttons = document.getElementsByTagName('button');
 
-  const filtered = Array.prototype.filter.call(buttons, button => button.className != 'choice');
-  Array.prototype.forEach.call(filtered, button => button.disabled = enabled ? '' : 'disabled');
+  const filtered = methods.filter(buttons, button => button.className != 'choice');
+  methods.forEach(filtered, button => button.disabled = enabled ? '' : 'disabled');
 }
 
 function disableButtonsWhile(func) {
@@ -210,7 +257,7 @@ document.getElementById('reset').addEventListener('click', function () {
 });
 
 const modes = document.getElementsByClassName('mode');
-const forEachMode = f => Array.prototype.forEach.call(modes, f);
+const forEachMode = f => methods.forEach(modes, f);
 
 function toggleMode(e) {
   const target = e.target;
