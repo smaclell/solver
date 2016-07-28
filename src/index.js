@@ -106,6 +106,29 @@ function createBoard422() {
   return Board.from(rows, q);
 }
 
+function createPairTest() {
+  const q = 0;
+  const rows = [
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q],
+    [q, q, q, q, q, q, q, q, q]
+  ];
+
+  let temp = Board.from(rows, q);
+  temp.square(0).slice(2).forEach(c => {
+    c.remove(1);
+    c.remove(2);
+  });
+
+  return temp;
+}
+
 let methods = {};
 const addMethod = m => methods[m] = (t, f) => Array.prototype[m].call(t, f);
 ['forEach', 'filter'].forEach(m => addMethod(m));
@@ -195,7 +218,7 @@ function render(board) {
   });
 }
 
-const pattern = createBoard422;
+const pattern = createPairTest;
 
 let b = pattern();
 render(b);

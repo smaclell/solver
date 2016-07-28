@@ -38,6 +38,46 @@ function singleOption(cells) {
   return reduced;
 }
 
+function hiddenPair(cells) {
+  let ignored = [];
+
+  for(let i = 0; i < cells.length && ignored.length < 8; i++) {
+    const cell = cells[i];
+    if (cell.solved) {
+      ignored.push(cell.value);
+      continue;
+    }
+
+    let candidates = [];
+    for(let j = 0; j < cell.options.length; j++) {
+      const o = cell.options[j];
+      if (ignored.includes(o)) {
+        continue;
+      }
+
+      const filtered = cells.filter((c, x) => x > i && c.options.includes(o));
+      if (filtered.length === 1) {
+        const other = filtered[0];
+        const candidate = candidates.find(p => p.other === other);
+        if (!candidate) {
+          candidates.push({other, match: o});
+        } else {
+          const match = candidate.match;
+          const reduced = cell.options.length + other.options.length - 4;
+
+          cell.options = [match, o];
+          other.options = [match, o];
+          return reduced;
+        }
+      } else {
+        ignored.push(o);
+      }
+    }
+  }
+
+  return 0;
+}
+
 function breaker(current, target) {
   const properties = ['v', 'type', 'cellReducer'];
   const miss = !!properties.find(prop => current[prop] !== target[prop]);
@@ -52,7 +92,7 @@ function reduceEach(cellReducer) {
     reducers = reducers.concat(types.map(
       type => board => {
         /*
-        if (breaker({v, type, cellReducer}, {v:3, type: 'square', cellReducer: singleOption})) {
+        if (breaker({v, type, cellReducer}, {v:0, type: 'square', cellReducer: hiddenPair})) {
           console.log('x');
         }
         */
@@ -89,7 +129,7 @@ export default function reduce(board) {
     rounds = 0;
     rounds += stablize(board, solvedCell);
     rounds += stablize(board, singleOption);
-    // TODO: Hidden pairs
+    rounds += stablize(board, hiddenPair);
     // TODO: Lines
   } while(rounds > 0);
 
