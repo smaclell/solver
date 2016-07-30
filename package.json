@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A simple sudoku solver",
   "scripts": {
+    "lint": "eslint src",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch"
   },
@@ -16,6 +17,11 @@
     "babel-preset-react": "^6.3.13",
     "chai": "^3.4.1",
     "css-loader": "^0.23.1",
+    "eslint": "^2.9.0",
+    "eslint-plugin-import": "^1.7.0",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-react": "^5.2.2",
     "exports-loader": "^0.6.3",
     "imports-loader": "^0.6.5",
     "mocha": "^2.3.4",
