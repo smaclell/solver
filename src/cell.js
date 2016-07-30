@@ -7,12 +7,14 @@ class Cell {
   }
 
   clone() {
-    let cell = new Cell();
+    const cell = new Cell();
     cell.solved = this.solved;
     cell.value = this.value;
     cell.options = [];
 
     this.options.forEach(x => cell.options.push(x));
+
+    return cell;
   }
 
   set(value) {
@@ -38,17 +40,16 @@ class Cell {
       return true;
     }
     return false;
-  };
+  }
 
   render(x, y) {
     if (this.solved) {
-      return `<div class="cell value" data-x="${x}" data-y="${y}">` + this.value + '</div>';
+      return `<div class="cell value" data-x="${x}" data-y="${y}">${this.value}</div>`;
     }
 
     let result = `<div class="cell" data-x="${x}" data-y="${y}">`;
 
     numbers.forEach(n => {
-
       if (n === 1 || n === 4 || n === 7) {
         result += '<div class="guesses">';
       }
@@ -57,14 +58,14 @@ class Cell {
       if (!this.options.includes(n)) {
         css += ' taken';
       }
-      result += '<div class="' + css + '">' + n + '</div>';
+      result += `<div class="${css}">${n}</div>`;
 
       if (n === 3 || n === 6 || n === 9) {
         result += '</div>';
       }
     });
 
-    result += '</div>'
+    result += '</div>';
 
     return result;
   }

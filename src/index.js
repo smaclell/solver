@@ -1,61 +1,60 @@
+/* eslint no-param-reassign: "off", no-return-assign: "off" */
 import Board from './board';
 import reduce from './reducers';
 
 require('./css/style.css');
 
+function createBoard10() { // eslint-disable-line no-unused-vars
+  const b = new Board();
 
+  b.cell(1, 1).set(3);
+  b.cell(2, 1).set(8);
+  b.cell(2, 2).set(6);
 
-function createBoard10() {
-  var b = new Board();
+  b.cell(3, 0).set(6);
+  b.cell(4, 0).set(3);
+  b.cell(5, 0).set(2);
+  b.cell(3, 2).set(4);
+  b.cell(4, 2).set(5);
 
-  b.cell(1,1).set(3);
-  b.cell(2,1).set(8);
-  b.cell(2,2).set(6);
+  b.cell(8, 0).set(9);
+  b.cell(6, 1).set(4);
+  b.cell(7, 1).set(5);
+  b.cell(8, 1).set(6);
 
-  b.cell(3,0).set(6);
-  b.cell(4,0).set(3);
-  b.cell(5,0).set(2);
-  b.cell(3,2).set(4);
-  b.cell(4,2).set(5);
+  b.cell(1, 4).set(7);
+  b.cell(0, 5).set(5);
+  b.cell(2, 5).set(3);
 
-  b.cell(8,0).set(9);
-  b.cell(6,1).set(4);
-  b.cell(7,1).set(5);
-  b.cell(8,1).set(6);
+  b.cell(3, 3).set(5);
+  b.cell(5, 3).set(4);
+  b.cell(4, 4).set(8);
+  b.cell(3, 5).set(2);
+  b.cell(5, 5).set(9);
 
-  b.cell(1,4).set(7);
-  b.cell(0,5).set(5);
-  b.cell(2,5).set(3);
+  b.cell(6, 3).set(9);
+  b.cell(8, 3).set(8);
+  b.cell(7, 4).set(6);
 
-  b.cell(3,3).set(5);
-  b.cell(5,3).set(4);
-  b.cell(4,4).set(8);
-  b.cell(3,5).set(2);
-  b.cell(5,5).set(9);
+  b.cell(0, 7).set(8);
+  b.cell(1, 7).set(6);
+  b.cell(2, 7).set(9);
+  b.cell(0, 8).set(6);
 
-  b.cell(6,3).set(9);
-  b.cell(8,3).set(8);
-  b.cell(7,4).set(6);
+  b.cell(4, 6).set(2);
+  b.cell(5, 6).set(6);
+  b.cell(4, 8).set(3);
+  b.cell(5, 8).set(9);
+  b.cell(6, 8).set(5);
 
-  b.cell(0,7).set(8);
-  b.cell(1,7).set(6);
-  b.cell(2,7).set(9);
-  b.cell(0,8).set(6);
-
-  b.cell(4,6).set(2);
-  b.cell(5,6).set(6);
-  b.cell(4,8).set(3);
-  b.cell(5,8).set(9);
-  b.cell(6,8).set(5);
-
-  b.cell(6,6).set(1);
-  b.cell(6,7).set(5);
-  b.cell(7,7).set(2);
+  b.cell(6, 6).set(1);
+  b.cell(6, 7).set(5);
+  b.cell(7, 7).set(2);
 
   return b;
 }
 
-function createBoard14() {
+function createBoard14() { // eslint-disable-line no-unused-vars
   const q = 0;
   const rows = [
     [6, 5, q, 2, q, 8, q, 1, 7],
@@ -66,13 +65,13 @@ function createBoard14() {
     [q, q, 8, 1, q, q, q, 2, q],
     [5, 7, 4, q, q, 2, q, q, 6],
     [2, q, q, q, q, q, 7, q, q],
-    [9, 8, q, 6, q, 7, q, 3, q]
+    [9, 8, q, 6, q, 7, q, 3, q],
   ];
 
   return Board.from(rows, q);
 }
 
-function createBoard200() {
+function createBoard200() { // eslint-disable-line no-unused-vars
   const q = 0;
   const rows = [
     [q, q, q, q, q, 4, 8, q, 1],
@@ -83,13 +82,13 @@ function createBoard200() {
     [q, q, q, 3, q, 9, 1, q, q],
     [4, 1, q, q, q, q, q, q, 9],
     [q, 9, q, 6, q, q, 2, q, 4],
-    [6, q, 3, 4, q, q, q, q, q]
+    [6, q, 3, 4, q, q, q, q, q],
   ];
 
   return Board.from(rows, q);
 }
 
-function createBoard422() {
+function createBoard422() { // eslint-disable-line no-unused-vars
   const q = 0;
   const rows = [
     [q, 7, q, q, 8, q, q, q, 5],
@@ -100,13 +99,13 @@ function createBoard422() {
     [7, q, q, 4, 1, q, q, q, q],
     [q, 9, q, 1, q, q, 4, q, q],
     [3, q, q, 8, q, q, q, 7, q],
-    [8, q, q, q, 7, q, q, 2, q]
+    [8, q, q, q, 7, q, q, 2, q],
   ];
 
   return Board.from(rows, q);
 }
 
-function createPairTest() {
+function createPairTest() { // eslint-disable-line no-unused-vars
   const q = 0;
   const rows = [
     [q, q, q, q, q, q, q, q, q],
@@ -117,10 +116,10 @@ function createPairTest() {
     [q, q, q, q, q, q, q, q, q],
     [q, q, q, q, q, q, q, q, q],
     [q, q, q, q, q, q, q, q, q],
-    [q, q, q, q, q, q, q, q, q]
+    [q, q, q, q, q, q, q, q, q],
   ];
 
-  let temp = Board.from(rows, q);
+  const temp = Board.from(rows, q);
   temp.square(0).slice(2).forEach(c => {
     c.remove(1);
     c.remove(2);
@@ -129,7 +128,7 @@ function createPairTest() {
   return temp;
 }
 
-let methods = {};
+const methods = {};
 const addMethod = m => methods[m] = (t, f) => Array.prototype[m].call(t, f);
 ['forEach', 'filter'].forEach(m => addMethod(m));
 
@@ -138,7 +137,7 @@ let mode = 'pencil';
 
 function clickCell(e) {
   let c = e.target;
-  while((c.className || '').indexOf('cell') === -1) {
+  while ((c.className || '').indexOf('cell') === -1) {
     c = c.parentElement;
   }
 
@@ -165,7 +164,7 @@ function clickCell(e) {
     }
   }
 
-  render(window.Board);
+  render(window.Board); // eslint-disable-line no-use-before-define
 }
 
 let hover = {};
@@ -175,8 +174,12 @@ function applyHover() {
   const remove = methods.filter(cells, c => !(c.dataset.x === hover.x || c.dataset.y === hover.y));
   methods.forEach(remove, c => c.className = c.className.replace('hover', ''));
 
-  const hovers = document.querySelectorAll(`.cell[data-x='${hover.x}'], .cell[data-y='${hover.y}']`);
-  methods.forEach(hovers, c => c.className = c.className.replace('hover', '') + ' hover');
+  const selector = `.cell[data-x='${hover.x}'], .cell[data-y='${hover.y}']`;
+  const hovers = document.querySelectorAll(selector);
+  methods.forEach(hovers, c => {
+    const clean = c.className.replace('hover', '');
+    c.className = `${clean} hover`;
+  });
 }
 
 function mouseEnter(e) {
@@ -186,7 +189,7 @@ function mouseEnter(e) {
 
   const x = parseInt(e.target.dataset.x, 10);
   const y = parseInt(e.target.dataset.y, 10);
-  const updated = {x, y};
+  const updated = { x, y };
 
   if (!updated.x || !updated.y) {
     return false;
@@ -233,8 +236,8 @@ function evaluate() {
 function toggleButtons(enabled = true) {
   const buttons = document.getElementsByTagName('button');
 
-  const filtered = methods.filter(buttons, button => button.className != 'choice');
-  methods.forEach(filtered, button => button.disabled = enabled ? '' : 'disabled');
+  const filtered = methods.filter(buttons, button => button.className !== 'choice');
+  methods.forEach(filtered, button => { button.disabled = enabled ? '' : 'disabled'; });
 }
 
 function disableButtonsWhile(func) {
@@ -243,14 +246,14 @@ function disableButtonsWhile(func) {
   toggleButtons(true);
 }
 
-document.getElementById('validate').addEventListener('click', function () {
+document.getElementById('validate').addEventListener('click', () => {
   let valid = true;
 
   const check = cells => {
-    let remaining = {};
+    const remaining = {};
     cells.filter(c => c.solved).forEach(c => {
       c.options.forEach(v => {
-        const found = remaining[v]
+        const found = remaining[v];
         if (found) {
           valid = false;
         }
@@ -259,22 +262,22 @@ document.getElementById('validate').addEventListener('click', function () {
     });
   };
 
-  for(let i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i++) {
     check(window.Board.column(i));
     check(window.Board.row(i));
     check(window.Board.square(i));
   }
 
   if (!valid) {
-    alert("INVALID");
+    alert('INVALID'); // eslint-disable-line no-alert
   }
 });
 
-document.getElementById('reduce').addEventListener('click', function () {
+document.getElementById('reduce').addEventListener('click', () => {
   disableButtonsWhile(evaluate);
 });
 
-document.getElementById('reset').addEventListener('click', function () {
+document.getElementById('reset').addEventListener('click', () => {
   window.Board = b = pattern();
   disableButtonsWhile(evaluate);
 });
@@ -286,7 +289,9 @@ function toggleMode(e) {
   const target = e.target;
   mode = target.id;
 
-  const modeSelector = m => m.className = m === target ? 'mode selected' : 'mode';
+  const selected = 'mode selected';
+  const normal = 'mode';
+  const modeSelector = m => { m.className = m === target ? selected : normal; };
   forEachMode(modeSelector);
 }
 
@@ -300,7 +305,7 @@ function setupModes() {
 }
 
 function changeChoice(e) {
-  const previous = document.querySelector('button[data-choice="' + choice + '"]');
+  const previous = document.querySelector(`button[data-choice="${choice}"]`);
   if (previous) {
     previous.className = 'choice';
   }
@@ -327,7 +332,7 @@ function setupChoices() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
   setupChoices();
   setupModes();
 });

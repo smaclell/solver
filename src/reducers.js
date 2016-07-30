@@ -1,5 +1,3 @@
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 function solvedCell(cells) {
   const values = cells.map(c => c.value);
 
@@ -9,14 +7,14 @@ function solvedCell(cells) {
     if (c.solve()) {
       reduced++;
     }
-  })
+  });
 
   return reduced;
 }
 
 function singleOption(cells) {
   let reduced = 0;
-  let remaining = {};
+  const remaining = {};
 
   cells.filter(c => !c.solved).forEach(c => {
     c.options.forEach(v => {
@@ -39,17 +37,17 @@ function singleOption(cells) {
 }
 
 function hiddenPair(cells) {
-  let ignored = [];
+  const ignored = [];
 
-  for(let i = 0; i < cells.length && ignored.length < 8; i++) {
+  for (let i = 0; i < cells.length && ignored.length < 8; i++) {
     const cell = cells[i];
     if (cell.solved) {
       ignored.push(cell.value);
       continue;
     }
 
-    let candidates = [];
-    for(let j = 0; j < cell.options.length; j++) {
+    const candidates = [];
+    for (let j = 0; j < cell.options.length; j++) {
       const o = cell.options[j];
       if (ignored.includes(o)) {
         continue;
@@ -60,7 +58,7 @@ function hiddenPair(cells) {
         const other = filtered[0];
         const candidate = candidates.find(p => p.other === other);
         if (!candidate) {
-          candidates.push({other, match: o});
+          candidates.push({ other, match: o });
         } else {
           const match = candidate.match;
           const reduced = cell.options.length + other.options.length - 4;
@@ -78,7 +76,7 @@ function hiddenPair(cells) {
   return 0;
 }
 
-function breaker(current, target) {
+function breaker(current, target) { // eslint-disable-line no-unused-vars
   const properties = ['v', 'type', 'cellReducer'];
   const miss = !!properties.find(prop => current[prop] !== target[prop]);
   return !miss;
@@ -87,8 +85,8 @@ function breaker(current, target) {
 function reduceEach(cellReducer) {
   const types = ['column', 'row', 'square'];
   let reducers = [];
-  for(let i = 0; i < 9; i++) {
-    let v = i;
+  for (let i = 0; i < 9; i++) {
+    const v = i;
     reducers = reducers.concat(types.map(
       type => board => {
         /*
@@ -110,9 +108,7 @@ function stablize(board, cellReducer) {
   const reducers = reduceEach(cellReducer);
 
   let rounds = 0;
-  const combiner = function (count, reducer) {
-    return count + reducer(board);
-  };
+  const combiner = (count, reducer) => count + reducer(board);
 
   while (reducers.reduce(combiner, 0) > 0) {
     rounds++;
@@ -122,16 +118,16 @@ function stablize(board, cellReducer) {
 }
 
 export default function reduce(board) {
-  let updated = board.clone();
+  const updated = board.clone();
   let rounds = 0;
 
   do {
     rounds = 0;
-    rounds += stablize(board, solvedCell);
-    rounds += stablize(board, singleOption);
-    rounds += stablize(board, hiddenPair);
+    rounds += stablize(updated, solvedCell);
+    rounds += stablize(updated, singleOption);
+    rounds += stablize(updated, hiddenPair);
     // TODO: Lines
-  } while(rounds > 0);
+  } while (rounds > 0);
 
-  return board;
+  return updated;
 }
