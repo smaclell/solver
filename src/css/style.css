@@ -15,6 +15,7 @@
 }
 
 .hover:hover, .hover:hover .guess {
+  transition: all 0s;
   background-color: #555555;
   color: white;
 }
