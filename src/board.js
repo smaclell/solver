@@ -61,6 +61,30 @@ class Board {
     return this.rows[x][y];
   }
 
+  isValid() {
+    let valid = true;
+
+    const check = cells => {
+      const remaining = {};
+      cells.filter(c => c.solved).forEach(c => {
+        c.options.forEach(v => {
+          const found = remaining[v];
+          if (found) {
+            valid = false;
+          }
+          remaining[v] = true;
+        });
+      });
+    };
+
+    for (let i = 0; i < 9 && valid; i++) {
+      check(this.column(i));
+      check(this.row(i));
+      check(this.square(i));
+    }
+    return valid;
+  }
+
   render() {
     let result = '';
     const squareRenderer = (c, x, y) => {
