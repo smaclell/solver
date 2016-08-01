@@ -5,7 +5,7 @@ import setupHover from './ui/hover';
 import { applyMode, setupModes } from './ui/modes';
 import reduce from './reducers';
 
-require('./css/style.css');
+require('./css/style.scss');
 
 const pattern = boards.createBoard200;
 

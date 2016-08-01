@@ -16,9 +16,9 @@ module.exports = {
         presets: ['es2015'],
       },
     }, {
-      test: /\.css$/,
+      test: /style\.scss$/,
       exclude: /node_modules/,
-      loader: 'style!css',
+      loader: 'style!css!sass!',
     }],
   },
   resolve: {
