@@ -1,8 +1,26 @@
 @import 'buttons';
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+}
+
+header {
+  padding: 0px 2em;
+  h1 { font-size: 67px; margin: 0;}
+  p { font-size: 21px; margin: 0.5em 0;}
+}
+
 .buttons {
   text-align: center;
   height: 10%;
+
+  .separator {
+    width: 5px;
+  }
 }
 
 .invalid {
